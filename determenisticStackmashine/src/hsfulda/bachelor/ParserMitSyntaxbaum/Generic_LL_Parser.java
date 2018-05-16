@@ -1,8 +1,8 @@
-package hsfulda.bachelor.ParserMitSyntaxbaum;
+//package hsfulda.bachelor.ParserMitSyntaxbaum;
 
-import java.util.*;
+//import java.util.*;
 
-import javax.swing.tree.TreeModel;
+//import javax.swing.tree.TreeModel;
 
 //import  I_FlexibleGenericParserWithTree;
 
@@ -34,14 +34,12 @@ public class Generic_LL_Parser implements I_FlexibleGenericParserWithTree {
 		if(stackAlphabet.size() == 1) {
 			startSymbol = x;
 			}
-		System.out.println("addToGamma:" + x + "added");
 	}
 	@Override
 	public void addToDelta(char x, char a, String alpha) {
 		// TODO Auto-generated method stub
 		String [] tFunction = { Character.toString(x) , Character.toString(a) , alpha };
 		transferFunction.add(tFunction);
-		System.out.println(transferFunction);
 	}
 	@Override
 	public int[] parse(String wort) throws ParseException {
@@ -66,6 +64,9 @@ public class Generic_LL_Parser implements I_FlexibleGenericParserWithTree {
 					while(help[2].length() > 0){ // PUSH Variables (alpha) to Stack
 						Character lastone = help[2].charAt(help[2].length()-1);
 						stack.push(lastone);
+						if(help[2].length() == 1) {
+							continue;
+						}
 						help[2] = help[2].substring(0, help[2].length()-2);
 					}
 				}
@@ -74,8 +75,8 @@ public class Generic_LL_Parser implements I_FlexibleGenericParserWithTree {
 			stacksize[counter] = stack.size();
 			counter++;
 			if (!found) throw new ParseException();
-			wort = wort.substring(1,wort.length()-1);
-		
+			if (wort.length() > 1) wort = wort.substring(1,wort.length()-1);
+			
 		}
 		if(!stack.isEmpty()) {
 			throw new ParseException();
