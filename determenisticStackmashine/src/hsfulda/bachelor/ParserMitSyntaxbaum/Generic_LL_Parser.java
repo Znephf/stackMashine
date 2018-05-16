@@ -46,10 +46,11 @@ public class Generic_LL_Parser implements I_FlexibleGenericParserWithTree {
 	@Override
 	public int[] parse(String wort) throws ParseException {
 		
-
+		int counter = 1;
 		boolean found = false;
-		
+		int [] stacksize = new int [wort.length()+1];
 		stack.push(startSymbol); // Load startSymbol in stack
+		stacksize[0] = stack.size();
 		while(wort.length()>0) { // check every Char of wort
 			
 			if(stack.isEmpty()) {
@@ -70,6 +71,8 @@ public class Generic_LL_Parser implements I_FlexibleGenericParserWithTree {
 				}
 				
 			}
+			stacksize[counter] = stack.size();
+			counter++;
 			if (!found) throw new ParseException();
 			wort = wort.substring(1,wort.length()-1);
 		
@@ -77,16 +80,8 @@ public class Generic_LL_Parser implements I_FlexibleGenericParserWithTree {
 		if(!stack.isEmpty()) {
 			throw new ParseException();
 		}
-		
-	/*
-			
-			if(help[0].equals(startSymbol)) {
-				stack.push(help[0]);
-			}
-			
-		}
-		*/
-		return null;
+
+		return stacksize;
 	}
 	@Override
 	public TreeModel getSyntaxTree() {
