@@ -50,7 +50,7 @@ public class Generic_LL_Parser implements I_FlexibleGenericParserWithTree {
 		boolean found = false;
 		
 		stack.push(startSymbol); // Load startSymbol in stack
-		while(wort.length()>0) {
+		while(wort.length()>0) { // check every Char of wort
 			
 			if(stack.isEmpty()) {
 				throw new ParseException();
@@ -70,7 +70,7 @@ public class Generic_LL_Parser implements I_FlexibleGenericParserWithTree {
 				}
 				
 			}
-			
+			if (!found) throw new ParseException();
 			wort = wort.substring(1,wort.length()-1);
 		
 		}
